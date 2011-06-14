@@ -7,7 +7,7 @@ import os
 
 #sms notifcation variables
 username = "onspot"
-password = "digizu7iwyy99y"
+password = "digizu7iwyy99y" # wrong password
 senderid = "OnSpot"
 
 # pickle file path
