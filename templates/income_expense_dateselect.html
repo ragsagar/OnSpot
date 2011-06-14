@@ -1,0 +1,18 @@
+{% extends "admin/base_site.html" %}
+
+{% block extrastyle %}{% load adminmedia %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/login.css" />{% endblock %}
+
+{% block title %}Income Expense Report | OnSpot {% endblock %}
+{% block branding %}<h1 style="color:white;">Income Expense Report</h1>{% endblock %}	
+
+{% block content %}
+
+		<strong><p>Select the year and month </p></strong>
+		<form action="{% url income_expense_dateselect %}" method="post">{% csrf_token %}
+		  
+			{{ form.as_p }}
+			
+			<input type="submit" value="Check Report" />
+		</form>
+		
+{% endblock %}	

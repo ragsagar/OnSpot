@@ -1,0 +1,80 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n %}
+
+{% block title %}Income Expense Report | OnSpot {% endblock %}
+{% block branding %}<h1 style="color:white;">OnSpot Income Expense Report for {% if month_name %}{{ month_name }} {{ year }}{% else %}year {{year}}{% endif %}</h1>{% endblock %}	
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    {% url admin:jsi18n as jsi18nurl %}
+    <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock extrastyle %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="../../">
+        {% trans "Home" %}
+      </a>
+       &rsaquo; 
+       <a href="{% url income_expense_dateselect %}">
+        Find report for another month or year
+      </a>
+      </div>
+  {% endblock %}
+
+{% block bodyclass %}change-list{% endblock %}
+
+{% block content %}
+<div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+<h2>
+	{% if month_name %}General Expense in {{ month_name }} {{ year }}{% else %}General Expense in year {{year}} {% endif %}
+</h2>
+<table cellspacing="0" id="result_list">
+<thead>
+<tr>
+<h3><th>ID</th><th>Date</th><th>Deal</th><th>Particulars</th><th>Bill no</th><th>Amount</th><th>TimeStamp</th></h3>
+</tr>
+{% for item in ge_qs %}
+<tr>
+	<th>{{ item.id }}</th><th>{{ item.date }}</th><th>{{ item.deal }}</th><th>{{ item.particulars }}</th><th>{{ item.billno }}</th><th>{{ item.amount }}</th><th>{{ item.timestamp }}</th>
+</tr>
+{% endfor %}
+</thead>
+</table>
+<h3>Total Income = {{ total_income }}</h3>
+</div>
+<div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+<h2>
+	{% if month_name %}General Income in {{ month_name }} {{ year }}{% else %}General Income in year {{year}} {% endif %}
+</h2>
+<table cellspacing="0" id="result_list">
+<thead>
+<tr>
+<h3><th>ID</th><th>Date</th><th>Given By</th><th>Usage</th><th>Amount</th><th>TimeStamp</th></h3>
+</tr>
+{% for item in gi_qs %}
+<tr>
+	<th>{{ item.id }}</th><th>{{ item.date }}</th><th>{{ item.given_by }}</th><th>{{ item.usage }}</th><th>{{ item.amount }}</th><th>{{ item.timestamp }}</th>
+</tr>
+{% endfor %}
+</thead>
+</table>
+<h3>Total Expense = {{ total_expense }}</h3>
+</div>
+
+<h2>Current Balance = {{ current_balance }}</h2>	
+
+	
+{% endblock %}	

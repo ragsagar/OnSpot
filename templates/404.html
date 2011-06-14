@@ -1,0 +1,9 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Page Not Found | OnSpot {% endblock %}
+{% block branding %}<h1 style="color:white;">Page Not Found</h1>{% endblock %}	
+
+{% block content %}
+		<strong><h1>Sorry that page doesn't exist! You can go <a href="{% url admin:index %}">Home</a></h1></strong>
+		
+{% endblock %}	

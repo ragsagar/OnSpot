@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}SMS Notification | OnSpot {% endblock %}
+{% block branding %}<h1 style="color:white;">OnSpot SMS Notification Options</h1>{% endblock %}	
+
+{% block content %}
+		<strong><p>Check the books for which you want sms notification</p></strong>
+		<form action="{% url admininfo %}" method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Apply Changes" />
+		</form>
+{% endblock %}	
